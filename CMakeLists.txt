@@ -20,13 +20,15 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 # Define source files
 set(SOURCE_DIR "${CMAKE_SOURCE_DIR}/src")
 set(LIB_DIR "${CMAKE_SOURCE_DIR}/lib")
+file(GLOB SOURCE_FILES "${SOURCE_DIR}/*.c" "${LIB_DIR}/*.c")
+
 set(SOURCES
   ${SOURCE_DIR}/main.c
   ${LIB_DIR}/glad.c
 )
 
 # Create executable
-add_executable(${EXECUTABLE_NAME} ${SOURCES})
+add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
 
 # Link raylib library
 target_link_libraries(${EXECUTABLE_NAME} raylib GL glfw rt)

@@ -1,3 +1,4 @@
+#include "mugmanager.h"
 #include "stdio.h"
 #include "string.h"
 
@@ -6,37 +7,39 @@
 
 #define RAYGUI_IMPLEMENTATION
 #include "../include/raygui.h"
+#include "mugrectangle.h"
 #include "raymath.h"
 #include "rlgl.h"
 
 int main(int argc, char **argv) {
+
   SetConfigFlags(FLAG_WINDOW_RESIZABLE); // Window configuration flags
   InitWindow(850, 450, "raygui - test");
   SetTargetFPS(60);
-
+  glDisable(GL_CULL_FACE);
   void *windowHandle = GetWindowHandle();
   bool showMessageBox = false;
 
-  float vertices[] = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f};
+  init_mugtree();
+
+  float vertices[] = {
+      0.5f,  0.5f,  0.0f, // top right
+      0.5f,  -0.5f, 0.0f, // bottom right
+      -0.5f, -0.5f, 0.0f, // bottom left
+      -0.5f, 0.5f,  0.0f  // top left
+  };
+  int indices[] = {0, 1, 3, 1, 2, 3};
   Shader shader = LoadShader("resources/shaders/glsl/simpleshader.vs",
                              "resources/shaders/glsl/simpleshader.fs");
-  GLuint VBO;
-  GLuint VAO;
-  glGenVertexArrays(1, &VAO);
-  glGenBuffers(1, &VBO);
 
-  glBindVertexArray(VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
-  glEnableVertexAttribArray(0);
-
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray(0);
+  MugRectangle *mRect =
+      create_mug_rect((MugPoint){-0.5f, -0.5f, 0.0f},
+                      (MugPoint){0.5f, 0.5f, 0.0f}, GL_DYNAMIC_DRAW);
+  printMugRect(mRect);
 
   while (!WindowShouldClose()) {
     BeginDrawing();
-    ClearBackground(GetColor(0xffffff));
+    ClearBackground(GetColor(0xfff0ff));
 
     if (GuiButton((Rectangle){24, 24, 120, 30}, "#191#Show Message")) {
       showMessageBox = true;
@@ -53,13 +56,26 @@ int main(int argc, char **argv) {
     // OPENGL
     // ------------------------------------------------
     glUseProgram(shader.id);
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    mRect->vertices[0].x += 0.01;
+    if (mRect->vertices[0].x >= 1) {
+      mRect->vertices[0].x = -0.5;
+    }
+    mRect->vertices[1].x += 0.01;
+    if (mRect->vertices[1].x >= 1) {
+      mRect->vertices[1].x = -0.5;
+    }
+    update_mug_rect(mRect);
+    draw_mug_rect(mRect);
     glUseProgram(0);
     // ------------------------------------------------
     // END OPENGL
 
     EndDrawing();
   }
+  destroy_mug_rect(mRect);
+  mRect = NULL;
+
+  cleanup_mugtree();
+
   CloseWindow();
 }
