@@ -4,11 +4,6 @@ int m_rectangle_indices[] = {0, 1, 3, 1, 2, 3};
 GLuint m_rectangle_ebo;
 bool m_rect_init = false;
 
-/* Util Functions*/
-
-void copyMugPoint(MugPoint *src, MugPoint *dst);
-// End Util
-
 void init_rectangle_gl() {
   if (m_rect_init)
     return;
@@ -27,17 +22,17 @@ void exit_rectangle_gl() {
   m_rect_init = false;
 }
 
-MugRectangle *create_mug_rect(MugPoint bl, MugPoint tr, GLenum usage) {
+MugRectangle *create_mug_rect(MugPoint3 bl, MugPoint3 tr, GLenum usage) {
   MugRectangle *mRect = calloc(1, sizeof(MugRectangle));
   mRect->usage = usage;
   copyMugPoint(&tr, &mRect->vertices[0]);
   copyMugPoint(&bl, &mRect->vertices[2]);
 
-  MugPoint *br = &mRect->vertices[1];
+  MugPoint3 *br = &mRect->vertices[1];
   br->x = tr.x;
   br->y = bl.y;
 
-  MugPoint *tl = &mRect->vertices[3];
+  MugPoint3 *tl = &mRect->vertices[3];
   tl->x = bl.x;
   tl->y = tr.y;
 
@@ -76,25 +71,15 @@ void update_mug_rect(MugRectangle *mRect) {
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void copyMugPoint(MugPoint *src, MugPoint *dst) {
-  dst->x = src->x;
-  dst->y = src->y;
-  dst->z = src->z;
-}
-
-void printMugPoint(MugPoint *mugPoint) {
-  printf("MugPoint[%f, %f, %f]", mugPoint->x, mugPoint->y, mugPoint->z);
-}
-
 void printMugRect(MugRectangle *mugRect) {
   printf("MugRectangle[vao: %d, vbo %d]\n", mugRect->vao, mugRect->vbo);
   printf("\tBL: ");
-  printMugPoint(&mugRect->vertices[2]);
+  printMugPoint3(&mugRect->vertices[2]);
   printf("\n\tTL: ");
-  printMugPoint(&mugRect->vertices[3]);
+  printMugPoint3(&mugRect->vertices[3]);
   printf("\n\tBR: ");
-  printMugPoint(&mugRect->vertices[1]);
+  printMugPoint3(&mugRect->vertices[1]);
   printf("\n\tTR: ");
-  printMugPoint(&mugRect->vertices[0]);
+  printMugPoint3(&mugRect->vertices[0]);
   printf("\n");
 }
