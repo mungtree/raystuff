@@ -1,12 +1,25 @@
 cmake_minimum_required(VERSION 3.10)
 project(mugengine C CXX)
 
+set(INCLUDE_FILES
+        mugengine.hpp
+)
 set(SOURCE_FILES
-    mugengine.hpp
-    mugengine.cpp
+        ${INCLUDE_FILES}
+        mugengine.cpp
 )
 
+
+
 add_library(mugengine SHARED STATIC ${SOURCE_FILES})
+target_include_directories(mugengine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 install(TARGETS mugengine DESTINATION ${MUGENGINE_INSTALL_LIB_DIR})
+install(TARGETS mugengine DESTINATION ${MUGCOMMON_INSTALL_LIB_DIR})
+
+install(FILES ${INCLUDE_FILES} DESTINATION ${MUGENGINE_INSTALL_INCLUDE_DIR})
+if (DEFINED MUGCOMMON_INSTALL_INCLUDE_DIR)
+    install(FILES ${INCLUDE_FILES} DESTINATION ${MUGCOMMON_INSTALL_INCLUDE_DIR})
+endif (DEFINED MUGCOMMON_INSTALL_INCLUDE_DIR)
+
 # install(FILES division.h DESTINATION ${MUGENGINE_INSTALL_INCLUDE_DIR})

@@ -1,5 +1,5 @@
 #include "mugengine.hpp"
 
 void MugEngine::debug() {
-    std::cout << "hello!!" << std::endl;
+    std::cout << "hello23" << std::endl;
 }
