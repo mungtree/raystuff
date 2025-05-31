@@ -38,9 +38,7 @@ GLFWwindow * MugEngine::createWindow(int width, int height, std::string title, G
     }
     this->window = window;
     glfwMakeContextCurrent(window);
-    glViewport(0, 0, width, height);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         logError("Failed to initialize GLAD");
     }
