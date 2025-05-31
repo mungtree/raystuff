@@ -1,0 +1,1 @@
+Used CMAKE Template: https://github.com/kigster/cmake-project-template/blob/master/src/CMakeLists.txt

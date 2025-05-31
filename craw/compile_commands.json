@@ -1,0 +1,38 @@
+[
+{
+  "directory": "/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/build",
+  "command": "/usr/bin/gcc -I/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/include  -Wall -Wextra -g -g -std=gnu11 -o CMakeFiles/raystuff.dir/lib/glad.c.o -c /home/meet/SyncDrive/Programming/cstuff/projects/raystuff/lib/glad.c",
+  "file": "/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/lib/glad.c",
+  "output": "CMakeFiles/raystuff.dir/lib/glad.c.o"
+},
+{
+  "directory": "/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/build",
+  "command": "/usr/bin/gcc -I/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/include  -Wall -Wextra -g -g -std=gnu11 -o CMakeFiles/raystuff.dir/src/main.c.o -c /home/meet/SyncDrive/Programming/cstuff/projects/raystuff/src/main.c",
+  "file": "/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/src/main.c",
+  "output": "CMakeFiles/raystuff.dir/src/main.c.o"
+},
+{
+  "directory": "/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/build",
+  "command": "/usr/bin/gcc -I/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/include  -Wall -Wextra -g -g -std=gnu11 -o CMakeFiles/raystuff.dir/src/mug_simple_rectangle_engine.c.o -c /home/meet/SyncDrive/Programming/cstuff/projects/raystuff/src/mug_simple_rectangle_engine.c",
+  "file": "/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/src/mug_simple_rectangle_engine.c",
+  "output": "CMakeFiles/raystuff.dir/src/mug_simple_rectangle_engine.c.o"
+},
+{
+  "directory": "/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/build",
+  "command": "/usr/bin/gcc -I/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/include  -Wall -Wextra -g -g -std=gnu11 -o CMakeFiles/raystuff.dir/src/mugmanager.c.o -c /home/meet/SyncDrive/Programming/cstuff/projects/raystuff/src/mugmanager.c",
+  "file": "/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/src/mugmanager.c",
+  "output": "CMakeFiles/raystuff.dir/src/mugmanager.c.o"
+},
+{
+  "directory": "/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/build",
+  "command": "/usr/bin/gcc -I/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/include  -Wall -Wextra -g -g -std=gnu11 -o CMakeFiles/raystuff.dir/src/mugpoint3.c.o -c /home/meet/SyncDrive/Programming/cstuff/projects/raystuff/src/mugpoint3.c",
+  "file": "/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/src/mugpoint3.c",
+  "output": "CMakeFiles/raystuff.dir/src/mugpoint3.c.o"
+},
+{
+  "directory": "/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/build",
+  "command": "/usr/bin/gcc -I/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/include  -Wall -Wextra -g -g -std=gnu11 -o CMakeFiles/raystuff.dir/src/mugrectangle.c.o -c /home/meet/SyncDrive/Programming/cstuff/projects/raystuff/src/mugrectangle.c",
+  "file": "/home/meet/SyncDrive/Programming/cstuff/projects/raystuff/src/mugrectangle.c",
+  "output": "CMakeFiles/raystuff.dir/src/mugrectangle.c.o"
+}
+]
