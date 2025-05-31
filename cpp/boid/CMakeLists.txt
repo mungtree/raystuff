@@ -13,4 +13,5 @@ set(MUGBOID_INSTALL_LIB_DIR ${PROJECT_SOURCE_DIR}/lib)
 
 include_directories(${MUGBOID_INSTALL_INCLUDE_DIR})
 add_subdirectory(src)
-add_subdirectory(../mugengine mugengine)
+add_subdirectory(test)
+# add_subdirectory(../mugengine mugengine)
