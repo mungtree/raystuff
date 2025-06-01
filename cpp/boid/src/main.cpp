@@ -1,15 +1,10 @@
 #include <iostream>
 #include "mugengine.hpp"
 
-void logError(std::string error) {
-    std::cerr << "[MugEngine]\t" << error << std::endl;
-}
-
 void processInput(GLFWwindow* window);
 
 int main(int argv, char** argc) {
     MugEngine engine = MugEngine();
-    engine.setErrorCallback(logError);
     engine.init();
     engine.createWindow(800, 600, "Mugtree", nullptr, nullptr);
     GLFWwindow* window = engine.getWindow();

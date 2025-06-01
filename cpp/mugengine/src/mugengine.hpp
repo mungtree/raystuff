@@ -3,24 +3,22 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "util/MugLogger.hpp"
+
 class MugEngine {
 private:
-   bool initState = false;
-    GLFWwindow* window = nullptr;
-
-    void (*onErrorCb)(std::string error) = nullptr;
-    void logError(std::string error);
+    MugLogger logger;
+    bool initState = false;
+    GLFWwindow *window = nullptr;
 public:
+    MugEngine();
     int init();
-    GLFWwindow* createWindow(int width, int height, std::string title, GLFWmonitor* monitor, GLFWwindow* share);
 
-    void setErrorCallback(void (*callback)(std::string error)) {
-        onErrorCb = callback;
-    }
+    GLFWwindow *createWindow(int width, int height, const std::string& title, GLFWmonitor *monitor, GLFWwindow *share);
 
     ///
     /// Getters and Setters
     ///
-    [[nodiscard]] bool isInit() const { return initState;}
-    GLFWwindow* getWindow() const { return window; }
+    [[nodiscard]] bool isInit() const { return initState; }
+    GLFWwindow *getWindow() const { return window; }
 };
