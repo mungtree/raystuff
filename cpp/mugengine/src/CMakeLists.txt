@@ -2,13 +2,18 @@ cmake_minimum_required(VERSION 3.13)
 project(mugengine C CXX)
 
 set(INCLUDE_FILES
-        mugengine.hpp
+        MugEngine.hpp
         util/MugLogger.hpp
+        shaders/MugShader.hpp
+        render/simple/SimpleTriangle.h
+        render/simple/SimplePoint.h
 )
 set(SOURCE_FILES
         ${INCLUDE_FILES}
-        mugengine.cpp
+        MugEngine.cpp
         util/MugLogger.cpp
+        shaders/MugShader.cpp
+        render/simple/SimpleTriangle.cpp
 )
 
 set(EXTERNAL_LIBS

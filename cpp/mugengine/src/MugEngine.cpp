@@ -1,4 +1,4 @@
-#include "mugengine.hpp"
+#include "MugEngine.hpp"
 
 MugEngine::MugEngine() = default;
 
@@ -41,4 +41,14 @@ GLFWwindow * MugEngine::createWindow(int width, int height, const std::string& t
         MugLogger::critical("Failed to initialize GLAD");
     }
     return window;
+}
+
+void MugEngine::BeginDraw() {
+    glClearColor(ClearColor.r, ClearColor.g, ClearColor.b, ClearColor.a);
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void MugEngine::EndDraw() {
+    glfwSwapBuffers(window);
+    glfwPollEvents();
 }
