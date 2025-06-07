@@ -9,4 +9,8 @@ struct ColorRGBA {
     float r, g, b, a;
 } typedef ColorRGBA;
 
+struct ColorRGB {
+    float r, g, b;
+};
+
 #endif //RGBACOLOR_H

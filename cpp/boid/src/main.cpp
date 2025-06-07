@@ -3,6 +3,8 @@
 #include <thread>
 
 #include "MugEngine.hpp"
+#include "SimpleBoidSimulation.h"
+#include "render/simple/InstancedTriangles.h"
 #include "render/simple/SimpleTriangle.h"
 #include "shaders/MugShader.hpp"
 
@@ -21,25 +23,32 @@ int main(int argv, char** argc) {
             MugLogger::error("Failed to load simple shader");
             return -1;
         }
-        SimpleTriangle tri = SimpleTriangle(SimplePoint(-0.5, -0.5), SimplePoint(0.5, -0.5), SimplePoint(0.0, 0.5));
 
+        auto instShader = MugShader::loadShaderNamed("res/shaders/simple", "instancedtri");
+        if (instShader == nullptr) {
+            MugLogger::error("Failed to load instanced shader");
+            return -1;
+        }
+
+        SimpleTriangle tri = SimpleTriangle(SimplePoint(-0.5, -0.5), SimplePoint(0.5, -0.5), SimplePoint(0.0, 0.5));
+        InstancedTriangles inst = InstancedTriangles(500);
+        SimpleBoidSimulation boids(100);
+        boids.update();
+        inst.setShader(instShader);
 
         while (!glfwWindowShouldClose(window)) {
             processInput(window);
             engine.BeginDraw();
 
-            simpleShader->bind();
-            tri.draw();
-            simpleShader->unbind();
-
+            // inst.draw();
+            // boids.update();
+            boids.update();
+            boids.draw();
             engine.EndDraw();
         }
-        glfwTerminate();
     }
     MugLogger::debug("Shutting down");
-    for (int i = 0; i < 10; i++) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
+    glfwTerminate();
     return 0;
 }
 

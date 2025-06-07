@@ -7,6 +7,7 @@ set(INCLUDE_FILES
         shaders/MugShader.hpp
         render/simple/SimpleTriangle.h
         render/simple/SimplePoint.h
+        render/simple/InstancedTriangles.h
 )
 set(SOURCE_FILES
         ${INCLUDE_FILES}
@@ -14,6 +15,7 @@ set(SOURCE_FILES
         util/MugLogger.cpp
         shaders/MugShader.cpp
         render/simple/SimpleTriangle.cpp
+        render/simple/InstancedTriangles.cpp
 )
 
 set(EXTERNAL_LIBS

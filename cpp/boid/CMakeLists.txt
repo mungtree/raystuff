@@ -12,16 +12,24 @@ include_directories(${MUGBOID_INSTALL_INCLUDE_DIR})
 
 set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 
-set(SOURCE_FILES
-        src/main.cpp
+set(INCLUDE_FILES
+        src/SimpleBoidSimulation.h
 )
 
+set(SOURCE_FILES
+        ${INCLUDE_FILES}
+        src/main.cpp
+        src/SimpleBoidSimulation.cpp
+)
+
+find_package(glm CONFIG REQUIRED)
+
 add_executable(mugboid ${SOURCE_FILES})
-target_link_libraries(mugboid mugengine glad glfw)
+target_link_libraries(mugboid mugengine glad glfw glm::glm)
 file(COPY res DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
-add_custom_target(copy_assets
+add_custom_target(copy_boid_assets
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res
 )
-add_dependencies(mugboid copy_assets)
+add_dependencies(mugboid copy_boid_assets)
 
 add_subdirectory(test)

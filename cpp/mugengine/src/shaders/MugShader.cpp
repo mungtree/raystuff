@@ -31,7 +31,7 @@ MugShader::MugShader(GLuint shaderProgram) {
 
 
 MugShader::~MugShader() {
-    MugLogger::debug("Deallocating shader program " + this->shaderProgram);
+    MugLogger::debug("Deallocating shader program " + std::to_string(this->shaderProgram));
     glDeleteProgram(this->shaderProgram);
 }
 
@@ -43,7 +43,7 @@ void MugShader::unbind() {
     glUseProgram(0);
 }
 
-std::shared_ptr<MugShader> MugShader::loadShader(std::string vpath, std::string fpath) {
+std::shared_ptr<MugShader> MugShader::loadShader(const std::string& vpath, const std::string &fpath) {
     std::string vertexSrc = read_file(vpath);
     if (vertexSrc.length()  == 0) {
         MugLogger::error("Failed to read vertex shader: " + vpath);
@@ -97,11 +97,11 @@ std::shared_ptr<MugShader> MugShader::loadShaderNamed(std::string path, std::str
 
 bool MugShader::logShaderCompileStatus(GLuint shaderId, GLenum pname, const std::string &msg ) {
     int success;
-    char infoLog[512] = {};
+    char infoLog[GL_INFO_LOG_LENGTH] = {};
     glGetShaderiv(shaderId, pname, &success);
     if (success) {
     } else {
-        glGetProgramInfoLog(shaderId, 512, NULL, infoLog);
+        glGetProgramInfoLog(shaderId, GL_INFO_LOG_LENGTH, nullptr, infoLog);
         MugLogger::warn("Shader Error - " + msg + "" + std::string(infoLog));
     }
     return success;
