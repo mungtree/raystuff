@@ -1,21 +1,25 @@
 #include <filesystem>
 #include <iostream>
 #include <thread>
+#include <unistd.h>
 
+#include "GridBoidSimulation.h"
 #include "MugEngine.hpp"
 #include "SimpleBoidSimulation.h"
 #include "render/simple/InstancedTriangles.h"
 #include "render/simple/SimpleTriangle.h"
 #include "shaders/MugShader.hpp"
 
-void processInput(GLFWwindow* window);
+void processInput(GLFWwindow *window);
 
-int main(int argv, char** argc) {
-    {
+SimpleBoidSimulation *sim = nullptr;
+
+int main(int argv, char **argc) { {
         MugEngine engine = MugEngine();
         engine.init();
-        engine.createWindow(800, 600, "Mugtree", nullptr, nullptr);
-        GLFWwindow* window = engine.getWindow();
+        engine.createWindow(1000, 700, "Mugtree", nullptr, nullptr);
+        engine.ClearColor = ColorRGBA{0.1, 0.1, 0.2, 1.0};
+        GLFWwindow *window = engine.getWindow();
         auto path = std::filesystem::current_path();
         MugLogger::debug("Starting at: " + path.string());
         auto simpleShader = MugShader::loadShaderNamed("res/shaders/simple", "simpletri");
@@ -31,29 +35,37 @@ int main(int argv, char** argc) {
         }
 
         SimpleTriangle tri = SimpleTriangle(SimplePoint(-0.5, -0.5), SimplePoint(0.5, -0.5), SimplePoint(0.0, 0.5));
-        InstancedTriangles inst = InstancedTriangles(500);
-        SimpleBoidSimulation boids(100);
+
+        //SimpleBoidSimulation boids(1000);
+        //sim = &boids;
+        GridBoidSimulation boids(100);
         boids.update();
-        inst.setShader(instShader);
+        boids.startUpdateThread();
+
 
         while (!glfwWindowShouldClose(window)) {
             processInput(window);
             engine.BeginDraw();
 
             // inst.draw();
-            // boids.update();
-            boids.update();
+            //boids.update();
             boids.draw();
             engine.EndDraw();
         }
+        boids.stopUpdateThread();
+        sim = nullptr;
     }
     MugLogger::debug("Shutting down");
     glfwTerminate();
     return 0;
 }
 
-void processInput(GLFWwindow* window) {
+void processInput(GLFWwindow *window) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, GLFW_TRUE);
+    } else if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+        if (sim != nullptr) {
+            sim->resetBoids();
+        }
     }
 }

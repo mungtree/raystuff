@@ -6,6 +6,11 @@
 
 #include <glm/ext/matrix_transform.hpp>
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/ext.hpp>
+
+#include "util/MugLogger.hpp"
+
 void TriangleColoredData::setColor(ColorRGB color) {
     for (int i = 0; i < 3; i++) {
         triangleData[i].rgb[0] = color.r;
@@ -17,9 +22,9 @@ void TriangleColoredData::setColor(ColorRGB color) {
 InstancedTriangles::InstancedTriangles(unsigned int numTriangles) {
     transforms = std::vector(numTriangles, TriangleTransformation());
     TriangleColoredData data = {
-        SimplePointStruct{-0.1, -0.1, 0.0, 1.0, 0.0, 0.0},
-        SimplePointStruct{0.1, -0.1, 0.0, 0.0, 1.0, 0.0},
-        SimplePointStruct{0.0, 0.25, 0.0, 0.0, 0.0, 1.0},
+        SimplePointStruct{-0.1, -0.1, 0.0, 0.2, 0.0, 0.4},
+        SimplePointStruct{0.1, -0.1, 0.0, 0.2, 0.0, 0.4},
+        SimplePointStruct{0.0, 0.20, 0.0, 0.8, 0.0, 0.2},
     };
     triangleData = std::vector(numTriangles, data);
 
@@ -64,7 +69,7 @@ void InstancedTriangles::updateColorPositionBuffer() {
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     TriangleColoredData *triBuf = triangleData.data();
     GLuint bufSz = sizeof(TriangleColoredData) * triangleData.size();
-    glBufferData(GL_ARRAY_BUFFER, bufSz, triBuf, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, bufSz, triBuf, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 

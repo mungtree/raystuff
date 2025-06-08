@@ -4,6 +4,7 @@ project(mugengine C CXX)
 set(INCLUDE_FILES
         MugEngine.hpp
         util/MugLogger.hpp
+        util/PairHelpers.h
         shaders/MugShader.hpp
         render/simple/SimpleTriangle.h
         render/simple/SimplePoint.h

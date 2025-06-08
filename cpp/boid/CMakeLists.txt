@@ -14,12 +14,16 @@ set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 
 set(INCLUDE_FILES
         src/SimpleBoidSimulation.h
+        src/GridBoidSimulation.h
+        src/AbstractBoidSimulator.h
 )
 
 set(SOURCE_FILES
         ${INCLUDE_FILES}
         src/main.cpp
+        src/AbstractBoidSimulator.cpp
         src/SimpleBoidSimulation.cpp
+        src/GridBoidSimulation.cpp
 )
 
 find_package(glm CONFIG REQUIRED)
