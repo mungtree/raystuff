@@ -9,54 +9,53 @@
 #include "render/simple/InstancedTriangles.h"
 #include "render/simple/SimpleTriangle.h"
 #include "shaders/MugShader.hpp"
+#include "imgui.h"
+#include "backends/imgui_impl_glfw.h"
+#include "backends/imgui_impl_opengl3.h"
+
 
 void processInput(GLFWwindow *window);
 
-SimpleBoidSimulation *sim = nullptr;
+AbstractBoidSimulator *sim = nullptr;
 
-int main(int argv, char **argc) { {
-        MugEngine engine = MugEngine();
-        engine.init();
-        engine.createWindow(1000, 700, "Mugtree", nullptr, nullptr);
-        engine.ClearColor = ColorRGBA{0.1, 0.1, 0.2, 1.0};
-        GLFWwindow *window = engine.getWindow();
-        auto path = std::filesystem::current_path();
-        MugLogger::debug("Starting at: " + path.string());
-        auto simpleShader = MugShader::loadShaderNamed("res/shaders/simple", "simpletri");
-        if (simpleShader == nullptr) {
-            MugLogger::error("Failed to load simple shader");
-            return -1;
-        }
+int main(int argv, char **argc) {
+    MugEngine engine = MugEngine();
+    engine.init();
+    engine.createWindow(1000, 700, "Mugtree", nullptr, nullptr);
+    engine.ClearColor = ColorRGBA{0.1, 0.1, 0.2, 1.0};
+    GLFWwindow *window = engine.getWindow();
 
-        auto instShader = MugShader::loadShaderNamed("res/shaders/simple", "instancedtri");
-        if (instShader == nullptr) {
-            MugLogger::error("Failed to load instanced shader");
-            return -1;
-        }
+    auto path = std::filesystem::current_path();
+    MugLogger::debug("Starting at: " + path.string());
 
-        SimpleTriangle tri = SimpleTriangle(SimplePoint(-0.5, -0.5), SimplePoint(0.5, -0.5), SimplePoint(0.0, 0.5));
-
-        //SimpleBoidSimulation boids(1000);
-        //sim = &boids;
-        GridBoidSimulation boids(100);
-        boids.update();
-        boids.startUpdateThread();
-
-
-        while (!glfwWindowShouldClose(window)) {
-            processInput(window);
-            engine.BeginDraw();
-
-            // inst.draw();
-            //boids.update();
-            boids.draw();
-            engine.EndDraw();
-        }
-        boids.stopUpdateThread();
-        sim = nullptr;
+    auto instShader = MugShader::loadShaderNamed("res/shaders/simple", "instancedtri");
+    if (instShader == nullptr) {
+        MugLogger::error("Failed to load instanced shader");
+        return -1;
     }
+
+    //SimpleBoidSimulation boids(1000);
+    GridBoidSimulation boids(10000);
+    sim = &boids;
+    boids.update();
+    boids.startUpdateThread();
+
+    while (!glfwWindowShouldClose(window)) {
+        processInput(window);
+        engine.BeginDraw();
+
+        engine.BeginImGuiFrame();
+        boids.drawImGui();
+        engine.EndImGuiFrame();
+
+        boids.draw();
+        engine.EndDraw();
+    }
+    boids.stopUpdateThread();
+    sim = nullptr;
+    engine.shutdown();
     MugLogger::debug("Shutting down");
-    glfwTerminate();
+
     return 0;
 }
 

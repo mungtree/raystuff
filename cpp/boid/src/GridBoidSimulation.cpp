@@ -207,3 +207,7 @@ void GridBoidSimulation::draw() {
 
     mTriangles.draw();
 }
+
+void GridBoidSimulation::updateSettings(BoidSimulationSettings settings) {
+    this->settings = settings;
+}

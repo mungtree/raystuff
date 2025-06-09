@@ -40,8 +40,7 @@ public:
     void resetBoids() override;
     void draw() override;
     unsigned int getBoidCount() const override { return boidCount; }
-
-    BoidSimulationSettings settings;
+    void updateSettings(BoidSimulationSettings settings) override;
 };
 
 class SimpleBoid {

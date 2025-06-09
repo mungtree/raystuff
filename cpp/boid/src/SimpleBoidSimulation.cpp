@@ -183,6 +183,10 @@ void SimpleBoidSimulation::draw() {
     mTriangles.draw();
 }
 
+void SimpleBoidSimulation::updateSettings(BoidSimulationSettings settings) {
+    this->settings = settings;
+}
+
 
 #pragma region Simple Boid
 

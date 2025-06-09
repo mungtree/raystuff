@@ -15,7 +15,7 @@ struct BoidSimulationSettings {
 
     float centeringRange = 0.01f;
     float avoidRange = 0.0007f;
-    float wallRange = 0.9f;
+    float wallRange = 0.98f;
 
     float maxSpeed = 0.005f;
 };

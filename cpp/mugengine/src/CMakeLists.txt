@@ -9,6 +9,7 @@ set(INCLUDE_FILES
         render/simple/SimpleTriangle.h
         render/simple/SimplePoint.h
         render/simple/InstancedTriangles.h
+        imgui/MugImGuiStuff.h
 )
 set(SOURCE_FILES
         ${INCLUDE_FILES}
@@ -17,11 +18,13 @@ set(SOURCE_FILES
         shaders/MugShader.cpp
         render/simple/SimpleTriangle.cpp
         render/simple/InstancedTriangles.cpp
+        imgui/MugImGuiStuff.cpp
 )
 
 set(EXTERNAL_LIBS
     glfw
     glm::glm
+    imgui
 )
 
 

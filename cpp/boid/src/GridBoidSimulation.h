@@ -22,7 +22,7 @@ struct GridBoidSettings {
     unsigned int gridSize = 16;
 };
 
-class GridBoidSimulation : AbstractBoidSimulator{
+class GridBoidSimulation : public AbstractBoidSimulator {
 private:
     std::mutex glMutex;
     std::thread updateThread;
@@ -47,8 +47,7 @@ public:
     void resetBoids() override;
     void draw() override;
     unsigned int getBoidCount() const override { return boidCount; }
-
-    BoidSimulationSettings settings;
+    void updateSettings(BoidSimulationSettings settings) override;
     GridBoidSettings gridSettings;
 
 };

@@ -29,7 +29,7 @@ set(SOURCE_FILES
 find_package(glm CONFIG REQUIRED)
 
 add_executable(mugboid ${SOURCE_FILES})
-target_link_libraries(mugboid mugengine glad glfw glm::glm)
+target_link_libraries(mugboid mugengine glad glfw glm::glm imgui)
 file(COPY res DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
 add_custom_target(copy_boid_assets
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res

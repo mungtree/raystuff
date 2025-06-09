@@ -10,6 +10,7 @@
 class AbstractBoidSimulator {
 protected:
 public:
+    BoidSimulationSettings settings;
     virtual ~AbstractBoidSimulator() = default;
     virtual void startUpdateThread() {}
     virtual void stopUpdateThread() {};
@@ -17,6 +18,9 @@ public:
     virtual void resetBoids() {};
     virtual void draw() {};
     virtual unsigned int getBoidCount() const { return 0; };
+    virtual void updateSettings(BoidSimulationSettings settings) {};
+
+    void drawImGui();
 };
 
 
