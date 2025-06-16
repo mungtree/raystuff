@@ -1,0 +1,36 @@
+cmake_minimum_required(VERSION 3.13)
+
+project(mugrdp C CXX)
+
+set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR})
+
+
+set(MUGRDP_INSTALL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
+set(MUGRDP_INSTALL_BIN_DIR ${PROJECT_SOURCE_DIR}/bin)
+set(MUGRDP_INSTALL_LIB_DIR ${PROJECT_SOURCE_DIR}/lib)
+
+include_directories(${MUGRDP_INSTALL_INCLUDE_DIR}
+    )
+
+set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
+
+set(INCLUDE_FILES
+)
+
+set(SOURCE_FILES
+        ${INCLUDE_FILES}
+        src/main.cpp
+)
+
+
+find_package(glm CONFIG REQUIRED)
+
+add_executable(mugrdp ${SOURCE_FILES})
+target_link_libraries(mugrdp mugengine glad glfw glm::glm imgui)
+file(COPY res DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
+add_custom_target(copy_mugrdp_assets
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res
+)
+add_dependencies(mugrdp copy_mugrdp_assets)
+
+add_subdirectory(test)

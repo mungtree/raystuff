@@ -4,6 +4,8 @@
 
 #include "GridBoidSimulation.h"
 
+#include <cmath>
+
 #include "SimpleBoidSimulation.h"
 #include "util/MugLogger.hpp"
 
@@ -30,8 +32,8 @@ void GridBoidSimulation::initGrid() {
 
 std::pair<int, int> GridBoidSimulation::getGridPositionForBoid(SimpleBoid &boid) const {
     float gridStep = 2.0f / gridSettings.gridSize;
-    int xCell = (boid.xPos + 1) / gridStep;
-    int yCell = (boid.yPos + 1) / gridStep;
+    int xCell = std::min(static_cast<int>((boid.xPos + 1) / gridStep), static_cast<int>(gridSettings.gridSize));
+    int yCell = std::min(static_cast<int>((boid.yPos + 1) / gridStep), static_cast<int>(gridSettings.gridSize));
     return std::make_pair(xCell, yCell);
 }
 
@@ -103,7 +105,7 @@ void GridBoidSimulation::calculateGrid(int i, int j) {
 
         // Update Boid Position
         boid->stepMovementUpdate();
-        if (abs(boid->xPos) >= 1.2f || abs(boid->yPos) >= 1.2f) {
+        if (std::fabs(boid->xPos) >= 1.1f || std::fabs(boid->yPos) >= 1.1f) {
             boid->randomize();
         }
         std::pair<int, int> newPos = getGridPositionForBoid(*boid);

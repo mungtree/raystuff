@@ -7,6 +7,7 @@
 #include <glm/ext/matrix_transform.hpp>
 
 #define GLM_ENABLE_EXPERIMENTAL
+#include <MugEngine.hpp>
 #include <glm/ext.hpp>
 
 #include "util/MugLogger.hpp"
@@ -57,6 +58,7 @@ InstancedTriangles::InstancedTriangles(unsigned int numTriangles) {
         glVertexAttribDivisor(2 + i, 1);
     }
 
+    // Load Default Shader
 }
 
 InstancedTriangles::~InstancedTriangles() {

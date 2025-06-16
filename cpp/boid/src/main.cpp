@@ -34,8 +34,8 @@ int main(int argv, char **argc) {
         return -1;
     }
 
-    //SimpleBoidSimulation boids(1000);
-    GridBoidSimulation boids(10000);
+    //SimpleBoidSimulation boids(10000);
+    GridBoidSimulation boids(40000);
     sim = &boids;
     boids.update();
     boids.startUpdateThread();

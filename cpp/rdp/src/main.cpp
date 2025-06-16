@@ -3,6 +3,7 @@
 #include <thread>
 
 #include "MugEngine.hpp"
+#include "render/simple/MugInstanceTriangleFan.h"
 #include "render/simple/SimpleTriangle.h"
 #include "shaders/MugShader.hpp"
 
@@ -10,37 +11,27 @@ void processInput(GLFWwindow* window);
 
 int main(int argv, char** argc) {
     {
-        MugEngine engine = MugEngine();
+        MugEngine& engine = MugEngine::getInstance();
         engine.init();
         engine.createWindow(800, 600, "Mugtree", nullptr, nullptr);
         GLFWwindow* window = engine.getWindow();
-        auto path = std::filesystem::current_path();
-        MugLogger::debug("Starting at: " + path.string());
 
-        auto simpleShader = engine.getShaderManager().loadNamedShader("simple/simpletri");
-        if (simpleShader == nullptr) {
-            MugLogger::error("Failed to load simple shader");
-            return -1;
-        }
-        SimpleTriangle tri = SimpleTriangle(SimplePoint(-0.5, -0.5), SimplePoint(0.5, -0.5), SimplePoint(0.0, 0.5));
-
+        MugInstanceTriangleFan circ = MugInstanceTriangleFan(1, 100);
 
         while (!glfwWindowShouldClose(window)) {
             processInput(window);
             engine.BeginDraw();
 
-            simpleShader->bind();
-            tri.draw();
-            simpleShader->unbind();
+            engine.BeginImGuiFrame();
+            engine.EndImGuiFrame();
+
+            circ.draw();
 
             engine.EndDraw();
         }
-        glfwTerminate();
+        engine.shutdown();
     }
     MugLogger::debug("Shutting down");
-    for (int i = 0; i < 10; i++) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
     return 0;
 }
 

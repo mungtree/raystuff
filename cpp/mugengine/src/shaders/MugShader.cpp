@@ -7,7 +7,6 @@
 #include <fstream>
 #include <sstream>
 
-#include "mugengine.hpp"
 #include "util/MugLogger.hpp"
 
 std::string MugShader::read_file(std::string path) {
@@ -31,8 +30,8 @@ MugShader::MugShader(GLuint shaderProgram) {
 
 
 MugShader::~MugShader() {
-    MugLogger::debug("Deallocating shader program " + std::to_string(this->shaderProgram));
-    glDeleteProgram(this->shaderProgram);
+    if (!hasDeallocated)
+        deallocate();
 }
 
 void MugShader::bind() {
@@ -41,6 +40,14 @@ void MugShader::bind() {
 
 void MugShader::unbind() {
     glUseProgram(0);
+}
+
+void MugShader::deallocate() {
+    if (hasDeallocated) return;
+    MugLogger::debug("Deallocating shader program " + std::to_string(this->shaderProgram));
+    glDeleteProgram(this->shaderProgram);
+    shaderProgram = 0;
+    hasDeallocated = true;
 }
 
 std::shared_ptr<MugShader> MugShader::loadShader(const std::string& vpath, const std::string &fpath) {

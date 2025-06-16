@@ -12,17 +12,22 @@ include_directories(${MUGEXAMPLE_INSTALL_INCLUDE_DIR})
 
 set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 
+set(INCLUDE_FILES
+)
 set(SOURCE_FILES
+        ${INCLUDE_FILES}
         src/main.cpp
 )
 
+find_package(glm CONFIG REQUIRED)
+
 add_executable(mugexample ${SOURCE_FILES})
-target_link_libraries(mugexample mugengine glad glfw)
+target_link_libraries(mugexample mugengine glad glfw glm::glm imgui)
 file(COPY res DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
 
-    add_custom_target(copy_example_assets
-            COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res
-    )
+add_custom_target(copy_example_assets
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res
+)
 add_dependencies(mugexample copy_example_assets)
 
 add_subdirectory(test)

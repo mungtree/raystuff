@@ -77,6 +77,7 @@ GLFWwindow *MugEngine::createWindow(int width, int height, const std::string &ti
 }
 
 void MugEngine::shutdown() {
+    shaderManager.clearShaders();
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();

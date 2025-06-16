@@ -14,6 +14,7 @@ class MugShader {
 private:
     static std::string read_file(std::string path);
     GLuint shaderProgram = 0;
+    bool hasDeallocated = false;
 public:
     static std::shared_ptr<MugShader> loadShader(const std::string& vpath, const std::string &fpath);
     static std::shared_ptr<MugShader> loadShaderNamed(std::string path, std::string name);
@@ -23,6 +24,8 @@ public:
     GLuint getShaderProgram() const { return shaderProgram; }
     void bind();
     void unbind();
+    void deallocate();
+    [[nodiscard]] bool isDeallocated() const { return hasDeallocated; }
     ~MugShader();
 };
 

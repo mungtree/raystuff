@@ -6,9 +6,11 @@ set(INCLUDE_FILES
         util/MugLogger.hpp
         util/PairHelpers.h
         shaders/MugShader.hpp
+        shaders/ShaderManager.h
         render/simple/SimpleTriangle.h
         render/simple/SimplePoint.h
         render/simple/InstancedTriangles.h
+        render/simple/MugInstanceTriangleFan.h
         imgui/MugImGuiStuff.h
 )
 set(SOURCE_FILES
@@ -16,8 +18,10 @@ set(SOURCE_FILES
         MugEngine.cpp
         util/MugLogger.cpp
         shaders/MugShader.cpp
+        shaders/ShaderManager.cpp
         render/simple/SimpleTriangle.cpp
         render/simple/InstancedTriangles.cpp
+        render/simple/MugInstanceTriangleFan.cpp
         imgui/MugImGuiStuff.cpp
 )
 

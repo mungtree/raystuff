@@ -6,6 +6,8 @@
 
 #include <unistd.h>
 
+#include <cmath>
+
 #include "util/MugLogger.hpp"
 
 
@@ -143,7 +145,7 @@ void SimpleBoidSimulation::update() {
 
 
         boid->stepMovementUpdate();
-        if (abs(boid->xPos) >= 1.2f || abs(boid->yPos) >= 1.2f) {
+        if (std::fabs(boid->xPos) >= 1.2f || std::fabs(boid->yPos) >= 1.2f) {
             boid->randomize();
         }
         glm::mat4x4 trans = glm::mat4x4(1.0f);
